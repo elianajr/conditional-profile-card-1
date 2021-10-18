@@ -29,18 +29,38 @@ function render(variables = {}) {
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
 
+  let memberName = `<h1 class="memberName">${variables.name} ${variables.lastname}</h1>`;
+  if (variables.name == null && variables.lastname != null) {
+    memberName = `<h1>${variables.lastname}</h1>`;
+  } else if (variables.lastname == null && variables.name != null) {
+    memberName = `<h1>${variables.name}</h1>`;
+  } else {
+    memberName = `<h1>Lucy Boilet</h1>`;
+  }
+
+  let memberRole = `<h2 class="memberRole">${variables.role}</h2>`;
+  if (variables.role == null) memberRole = "<h2>Web Developer</h2>";
+
+  let memberCity = `<h3 class="memberCity">${variables.city} ${variables.country}</h3>`;
+  if (variables.city == null && variables.country != null) {
+    memberCity = `<h3>${variables.country}</h3>`;
+  } else if (variables.country == null && variables.city != null) {
+    memberCity = `<h3>${variables.city}</h3>`;
+  } else {
+    memberCity = `<h3>Miami, USA</h3>`;
+  }
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/alesanchezr"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="https://github.com/alesanchezr"><i class="fa fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/alesanchezr"><i class="fa fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/alesanchezr"><i class="fa fa-instagram"></i></a></li>
+          ${memberName} 
+          ${memberRole}
+          ${memberCity}
+          <ul class="${variables.socialMediaPosition}">
+            <li><a href="${variables.twitter}" target="_blank"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="${variables.github}" target="_blank"><i class="fa fa-github"></i></a></li>
+            <li><a href="${variables.linkedin}" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="${variables.instagram}" target="_blank"><i class="fa fa-instagram"></i></a></li>
           </ul>
         </div>
     `;
